@@ -1,7 +1,10 @@
 from init import db, ma
+from marshmallow import fields
 
 class User(db.Model):
+    
     __tablename__= "users"
+    
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique =True)
     email = db.Column(db.String, nullable = False, unique =True)
@@ -13,9 +16,16 @@ class User(db.Model):
     phone_number = db.Column(db.String)
     is_admin = db.Column(db.Boolean, default=False)
 
+    characters = db.relationship("Character", back_populates="user")
+
+
+
 class UserSchema(ma.Schema):
+    characters = fields.List(fields.Nested('CharacterSchema', only=["name"]))
+
     class Meta:
-        fields =("id","username","email","password","first_name","last_name","date_of_birth","phone_number","is_admin")
+        fields =("id","username","email","password","first_name","last_name","date_of_birth","phone_number","is_admin","characters")
+        ordered = True
 
 #maybe include some user schemas that have more privacy for when other players want to each other's information
 user_schema = UserSchema(exclude=["password"])

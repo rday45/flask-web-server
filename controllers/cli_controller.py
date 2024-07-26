@@ -1,6 +1,8 @@
 from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
+from models.character import Character
+from datetime import date
 
 db_commands = Blueprint("db", __name__)
 
@@ -58,7 +60,30 @@ def seed_all_tables():
     admin_user.is_admin = True
 
     all_users = [sample_user_1,sample_user_2,sample_user_3,admin_user]
+    
     db.session.add_all(all_users)
+    
+    character_1 = Character()
+    character_1.name = "Sir Boris The Knight"
+    character_1.description = "A brave gallant knight who is loyal to his king."
+    character_1.vocation = "fighter"
+    character_1.level = 5
+    character_1.strength = 11
+    character_1.constitution = 11
+    character_1.dexterity = 6
+    character_1.intelligence = 1
+    character_1.wisdom = 1
+    character_1.charisma = 1
+    character_1.power_up_points = 0
+    character_1.date_of_creation = date.today()
+    character_1.user = sample_user_1
+
+
+
+
+    
+    
+    
     db.session.commit()
     print("All tables have been seeded")
 
