@@ -13,3 +13,57 @@ def create_all_tables():
 def drop_all_tables():
     db.drop_all()
     print("All tables have been dropped")
+
+@db_commands.cli.command("seed")
+def seed_all_tables():
+    
+    sample_user_1 = User()
+    sample_user_1.email = "sample_email_1@fakemail.com"
+    sample_user_1.username = "user1"
+    sample_user_1.password = bcrypt.generate_password_hash("password1").decode("utf-8")
+    sample_user_1.first_name = "David"
+    sample_user_1.last_name = "Smith"
+    sample_user_1.phone_number = "1234512345"
+    sample_user_1.date_of_birth = "1995-3-18"
+    sample_user_1.is_admin = False
+
+    sample_user_2 = User()
+    sample_user_2.email = "sample_email_2@fakemail.com"
+    sample_user_2.username = "user2"
+    sample_user_2.password = bcrypt.generate_password_hash("password2").decode("utf-8")
+    sample_user_2.first_name = "Stuart"
+    sample_user_2.last_name = "Armitage"
+    sample_user_2.phone_number = "1212112121"
+    sample_user_2.date_of_birth = "1995-5-15"
+    sample_user_2.is_admin = False
+
+    sample_user_3 = User()
+    sample_user_3.email = "sample_email_3@fakemail.com"
+    sample_user_3.username = "user3"
+    sample_user_3.password = bcrypt.generate_password_hash("password3").decode("utf-8")
+    sample_user_3.first_name = "Daniel"
+    sample_user_3.last_name = "Lo"
+    sample_user_3.phone_number = "1234512345"
+    sample_user_3.date_of_birth = "1990-2-15"
+    sample_user_3.is_admin = False
+
+    admin_user = User()
+    admin_user.email = "admin@fakemail.com"
+    admin_user.username = "admin1"
+    admin_user.password = bcrypt.generate_password_hash("adminpassword").decode("utf-8")
+    admin_user.first_name = "Timmy"
+    admin_user.last_name = "Turner"
+    admin_user.phone_number = "00000000000"
+    admin_user.date_of_birth = "1986-2-12"
+    admin_user.is_admin = True
+
+    all_users = [sample_user_1,sample_user_2,sample_user_3,admin_user]
+    db.session.add_all(all_users)
+    db.session.commit()
+    print("All tables have been seeded")
+
+
+
+
+
+
