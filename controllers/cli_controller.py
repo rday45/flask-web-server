@@ -64,7 +64,7 @@ def seed_all_tables():
     db.session.add_all(all_users)
     
     character_1 = Character()
-    character_1.name = "Sir Boris The Knight"
+    character_1.name = "Sir Boris"
     character_1.description = "A brave gallant knight who is loyal to his king."
     character_1.vocation = "fighter"
     character_1.level = 5
@@ -77,6 +77,90 @@ def seed_all_tables():
     character_1.power_up_points = 0
     character_1.date_of_creation = date.today()
     character_1.user = sample_user_1
+
+    character_2 = Character()
+    character_2.name = "Merlin"
+    character_2.description = "A powerful wizard who is loyal to his king."
+    character_2.vocation = "wizard"
+    character_2.level = 1
+    character_2.strength = 1
+    character_2.constitution = 1
+    character_2.dexterity = 1
+    character_2.intelligence = 1
+    character_2.wisdom = 1
+    character_2.charisma = 1
+    character_2.power_up_points = 0
+    character_2.date_of_creation = date.today()
+    character_2.user = sample_user_1
+
+    character_3 = Character()
+    character_3.name = "Shadow"
+    character_3.description = "A mysterious thief."
+    character_3.vocation = "rogue"
+    character_3.level = 3
+    character_3.strength = 1
+    character_3.constitution = 1
+    character_3.dexterity = 11
+    character_3.intelligence = 1
+    character_3.wisdom = 1
+    character_3.charisma = 1
+    character_3.power_up_points = 0
+    character_3.date_of_creation = date.today()
+    character_3.user = sample_user_2
+
+    character_4 = Character()
+    character_4.name = "Legolas"
+    character_4.description = "The world's most famous archer."
+    character_4.vocation = "ranger"
+    character_4.level = 3
+    character_4.strength = 1
+    character_4.constitution = 1
+    character_4.dexterity = 11
+    character_4.intelligence = 1
+    character_4.wisdom = 1
+    character_4.charisma = 1
+    character_4.power_up_points = 0
+    character_4.date_of_creation = date.today()
+    character_4.user = sample_user_2
+
+    character_5 = Character()
+    character_5.name = "Danny the Wild"
+    character_5.description = "A hunter who has lived in the woods for all his life."
+    character_5.vocation = "ranger"
+    character_5.level = 2
+    character_5.strength = 1
+    character_5.constitution = 1
+    character_5.dexterity = 6
+    character_5.intelligence = 1
+    character_5.wisdom = 1
+    character_5.charisma = 1
+    character_5.power_up_points = 0
+    character_5.date_of_creation = date.today()
+    character_5.user = sample_user_3
+
+    character_6 = Character()
+    character_6.name = "Simple Pete"
+    character_6.description = "A simple man who likes to smash things with his fists."
+    character_6.vocation = "fighter"
+    character_6.level = 2
+    character_6.strength = 6
+    character_6.constitution = 1
+    character_6.dexterity = 1
+    character_6.intelligence = 1
+    character_6.wisdom = 1
+    character_6.charisma = 1
+    character_6.power_up_points = 0
+    character_6.date_of_creation = date.today()
+    character_6.user = sample_user_3
+
+
+
+    all_characters = [character_1,character_2,character_3,character_4, character_5, character_6]
+    
+    db.session.add_all(all_characters)
+    db.session.commit()
+
+    
 
 
 
