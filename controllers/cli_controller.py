@@ -77,7 +77,7 @@ def seed_all_tables():
     character_1.intelligence = 1
     character_1.wisdom = 1
     character_1.charisma = 1
-    character_1.power_up_points = 0
+    character_1.money = 10
     character_1.date_of_creation = date.today()
     character_1.user = sample_user_1
 
@@ -92,7 +92,7 @@ def seed_all_tables():
     character_2.intelligence = 1
     character_2.wisdom = 1
     character_2.charisma = 1
-    character_2.power_up_points = 0
+    character_2.money = 0
     character_2.date_of_creation = date.today()
     character_2.user = sample_user_1
 
@@ -107,7 +107,7 @@ def seed_all_tables():
     character_3.intelligence = 1
     character_3.wisdom = 1
     character_3.charisma = 1
-    character_3.power_up_points = 0
+    character_3.money = 100
     character_3.date_of_creation = date.today()
     character_3.user = sample_user_2
 
@@ -122,7 +122,7 @@ def seed_all_tables():
     character_4.intelligence = 1
     character_4.wisdom = 1
     character_4.charisma = 1
-    character_4.power_up_points = 0
+    character_4.money = 1000
     character_4.date_of_creation = date.today()
     character_4.user = sample_user_2
 
@@ -137,7 +137,7 @@ def seed_all_tables():
     character_5.intelligence = 1
     character_5.wisdom = 1
     character_5.charisma = 1
-    character_5.power_up_points = 0
+    character_5.money = 20
     character_5.date_of_creation = date.today()
     character_5.user = sample_user_3
 
@@ -152,7 +152,7 @@ def seed_all_tables():
     character_6.intelligence = 1
     character_6.wisdom = 1
     character_6.charisma = 1
-    character_6.power_up_points = 0
+    character_6.money = 100
     character_6.date_of_creation = date.today()
     character_6.user = sample_user_3
 
@@ -211,9 +211,34 @@ def seed_all_tables():
 
     item_assignment_2 = InventoryItem()
     item_assignment_2.character_id = character_1.id
-    item_assignment_2.item_id = item_2.id
+    item_assignment_2.item_id = item_6.id
 
-    all_item_assignments = [item_assignment_1, item_assignment_2]
+    item_assignment_3 = InventoryItem()
+    item_assignment_3.character_id = character_2.id
+    item_assignment_3.item_id = item_2.id
+
+    item_assignment_3 = InventoryItem()
+    item_assignment_3.character_id = character_2.id
+    item_assignment_3.item_id = item_3.id
+
+    item_assignment_4 = InventoryItem()
+    item_assignment_4.character_id = character_3.id
+    item_assignment_4.item_id = item_4.id
+
+    item_assignment_5 = InventoryItem()
+    item_assignment_5.character_id = character_3.id
+    item_assignment_5.item_id = item_3.id
+
+    item_assignment_6 = InventoryItem()
+    item_assignment_6.character_id = character_4.id
+    item_assignment_6.item_id = item_3.id
+
+    item_assignment_7 = InventoryItem()
+    item_assignment_7.character_id = character_4.id
+    item_assignment_7.item_id = item_2.id
+
+
+    all_item_assignments = [item_assignment_1, item_assignment_2, item_assignment_3, item_assignment_4, item_assignment_5, item_assignment_6, item_assignment_7]
 
     db.session.add_all(all_item_assignments)
     db.session.commit()
