@@ -3,6 +3,7 @@ from init import db, bcrypt
 from models.user import User
 from models.character import Character
 from models.item import Item
+from models.inventory_item import InventoryItem
 from datetime import date
 
 db_commands = Blueprint("db", __name__)
@@ -203,7 +204,19 @@ def seed_all_tables():
     db.session.add_all(all_items)
     db.session.commit()
 
-    
+
+    item_assignment_1 = InventoryItem()
+    item_assignment_1.character_id = character_1.id
+    item_assignment_1.item_id = item_1.id
+
+    item_assignment_2 = InventoryItem()
+    item_assignment_2.character_id = character_1.id
+    item_assignment_2.item_id = item_2.id
+
+    all_item_assignments = [item_assignment_1, item_assignment_2]
+
+    db.session.add_all(all_item_assignments)
+    db.session.commit()
 
     
     print("All tables have been seeded")
