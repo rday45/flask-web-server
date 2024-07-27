@@ -2,6 +2,7 @@ from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
 from models.character import Character
+from models.item import Item
 from datetime import date
 
 db_commands = Blueprint("db", __name__)
@@ -62,6 +63,7 @@ def seed_all_tables():
     all_users = [sample_user_1,sample_user_2,sample_user_3,admin_user]
     
     db.session.add_all(all_users)
+    db.session.commit()
     
     character_1 = Character()
     character_1.name = "Sir Boris"
@@ -160,15 +162,50 @@ def seed_all_tables():
     db.session.add_all(all_characters)
     db.session.commit()
 
-    
+    item_1 = Item()
+    item_1.name = "Potion of Strength"
+    item_1.category = "potion"
+    item_1.description = "A potion that will improve your strength."
+    item_1.strength_boost = 5
+    item_1.price = 50
 
+    item_2 = Item()
+    item_2.name = "Potion of Intelligence"
+    item_2.category = "potion"
+    item_2.description = "A potion that will improve your intelligence."
+    item_2.intelligence_boost = 5
+    item_2.price = 50
 
+    item_3 = Item()
+    item_3.name = "Potion of Persuasion"
+    item_3.category = "potion"
+    item_3.description = "A potion that will improve your persuasion."
+    item_3.persuasion_boost = 5
+    item_3.price = 50
 
+    item_4 = Item()
+    item_4.name = "Key to Demon King's Castle"
+    item_4.category = "key"
+    item_4.description = "This item will grant you access to the Demon King's castle."
+    item_4.price = 1000
 
-    
-    
-    
+    item_5 = Item()
+    item_5.name = "Wooden bowl"
+    item_5.description = "A simple wooden bowl"
+    item_5.price = 1
+
+    item_6 = Item()
+    item_6.name = "Wooden Spoon"
+    item_6.description = "A simple wooden spoon"
+    item_6.price = 1
+
+    all_items = [item_1, item_2, item_3, item_4, item_5, item_6]
+    db.session.add_all(all_items)
     db.session.commit()
+
+    
+
+    
     print("All tables have been seeded")
 
 

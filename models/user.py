@@ -16,12 +16,12 @@ class User(db.Model):
     phone_number = db.Column(db.String)
     is_admin = db.Column(db.Boolean, default=False)
 
-    characters = db.relationship("Character", back_populates="user")
+    characters = db.relationship("Character", back_populates="user", cascade="all, delete")
 
 
 
 class UserSchema(ma.Schema):
-    characters = fields.List(fields.Nested('CharacterSchema', only=["name"]))
+    characters = fields.List(fields.Nested('CharacterSchema', only=["id","name","vocation","level"]))
 
     class Meta:
         fields =("id","username","email","password","first_name","last_name","date_of_birth","phone_number","is_admin","characters")
