@@ -18,4 +18,7 @@ def create_app():
     from controllers.cli_controller import db_commands
     app.register_blueprint(db_commands)
 
+    from controllers.character_controller import characters_bp
+    app.register_blueprint(characters_bp)
+
     return app
