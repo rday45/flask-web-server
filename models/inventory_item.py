@@ -18,7 +18,7 @@ class InventoryItem(db.Model):
 
 class InventoryItemSchema(ma.Schema):
     
-    item = fields.Nested('ItemSchema', only=["name"])
+    item = fields.Nested('ItemSchema', only=["id","name"])
     
     class Meta:
         fields = ("item","id","character_id","item_id","date_aquired","quantity",)

@@ -1,5 +1,8 @@
 from init import db,ma
 from marshmallow import fields
+from marshmallow.validate import Length, And, Regexp, OneOf
+
+VALID_ITEMS = ("potion","weapon","armour","key","miscellaneous")
 
 class Item(db.Model):
     
@@ -21,6 +24,21 @@ class Item(db.Model):
 
 
 class ItemSchema(ma.Schema):
+    
+    name = fields.String(required=True, validate=And(
+        Length(min=3, error="The minimum length for name is 3 characters."),
+        Regexp("^(?! )[A-Za-z0-9 ]*(?<! )$", error="name must only contain numbers and letters. Spaces can only exist between words")
+
+    ))
+
+    description = fields.String(required=True, validate=And(
+        Length(min=3, error="The minimum length for description is 3 characters."),
+        Regexp("^(?! )[A-Za-z0-9 ]*(?<! )$", error="description must only contain numbers and letters. Spaces can only exist between words")
+
+    ))
+
+    category = fields.String(required=True, validate=OneOf(VALID_ITEMS, error="invalid item, please choose potion, weapon, armour, key or miscellaneous") )
+
     class Meta:
         fields = ("id","name","category","description","strength_boost","constitution_boost","dexterity_boost","persuasion_boost","intelligence_boost","wisdom_boost","charisma_boost","damage","price",)
         ordered = True
