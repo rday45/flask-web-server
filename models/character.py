@@ -1,5 +1,8 @@
 from init import db, ma
 from marshmallow import fields
+from marshmallow.validate import Length, OneOf, And, Regexp
+
+VALID_VOCATIONS = ("fighter","wizard","ranger","rogue")
 
 class Character(db.Model):
     
@@ -27,6 +30,11 @@ class CharacterSchema(ma.Schema):
     
     user = fields.Nested('UserSchema', only=["id", "username",])
     
+    name = fields.String(required=True, validate=Length(min=3), error="The minimum length for name is 3 characters.")
+    
+    vocation = fields.String(required=True, validate=OneOf(VALID_VOCATIONS, error="invalid vocation, please choose fighter, wizard, ranger or rogue") )
+
+
     class Meta:
         fields = ("id","name","description","vocation","level","strength","constitution","dexterity","intelligence","wisdom","charisma","money","date_of_creation","user")
         ordered = True

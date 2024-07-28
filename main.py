@@ -1,6 +1,7 @@
 import os
 from flask import Flask
-#might not need this. Delete if it isn't needed
+from marshmallow.exceptions import ValidationError
+from sqlalchemy.exc import IntegrityError, DataError
 from init import db, ma, bcrypt, jwt
 
 def create_app():
@@ -14,6 +15,26 @@ def create_app():
     ma.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
+
+    @app.errorhandler(ValidationError)
+    def validation_error(err):
+        return {"error": err.messages}, 400
+    
+    @app.errorhandler(400)
+    def bad_request(err):
+        return {"error": err.description}, 400
+    
+    @app.errorhandler(401)
+    def unauthenticated():
+        return {"error": "You are not authenticated"}, 401
+    
+    @app.errorhandler(IntegrityError)
+    def handle_integrity_error(err):
+        return {"error":err.orig.diag.message_detail}, 409
+    
+    @app.errorhandler(DataError)
+    def handle_data_error(err):
+        return {"error": "Invalid input datatype for one of the given fields"}, 400
 
     from controllers.cli_controller import db_commands
     app.register_blueprint(db_commands)

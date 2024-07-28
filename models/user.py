@@ -23,6 +23,7 @@ class User(db.Model):
 class UserSchema(ma.Schema):
     characters = fields.List(fields.Nested('CharacterSchema', only=["id","name","vocation","level"]))
 
+
     class Meta:
         fields =("id","username","email","password","first_name","last_name","date_of_birth","phone_number","is_admin","characters")
         ordered = True
