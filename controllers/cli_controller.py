@@ -200,7 +200,36 @@ def seed_all_tables():
     item_6.description = "A simple wooden spoon"
     item_6.price = 1
 
-    all_items = [item_1, item_2, item_3, item_4, item_5, item_6]
+    item_7 = Item()
+    item_7.name = "Wooden Sword"
+    item_7.description ="A sword made of wood."
+    item_7.price = 5
+    item_7.damage = 5
+    item_7.category = "weapon"
+
+    item_8 = Item()
+    item_8.name = "Steel Sword"
+    item_8.description = "A sword made of steel."
+    item_8.price = 20
+    item_8.damage = 15
+    item_8.category = "weapon"
+
+    item_9 = Item()
+    item_9.name = "Wooden shield"
+    item_9.description ="A shield made of wood."
+    item_9.price = 5
+    item_9.constitution_boost = 5
+    item_9.category = "armour"
+
+    item_10 = Item()
+    item_10.name = "Iron shield"
+    item_10.description ="A shield made of iron."
+    item_10.price = 20
+    item_10.constitution_boost = 15
+    item_10.category = "armour"
+
+
+    all_items = [item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10]
     db.session.add_all(all_items)
     db.session.commit()
 
@@ -236,6 +265,7 @@ def seed_all_tables():
     item_assignment_7 = InventoryItem()
     item_assignment_7.character_id = character_4.id
     item_assignment_7.item_id = item_2.id
+    
 
 
     all_item_assignments = [item_assignment_1, item_assignment_2, item_assignment_3, item_assignment_4, item_assignment_5, item_assignment_6, item_assignment_7]

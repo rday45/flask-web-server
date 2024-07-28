@@ -16,12 +16,13 @@ class Item(db.Model):
     intelligence_boost = db.Column(db.Integer, nullable=False, default=0)
     wisdom_boost = db.Column(db.Integer, nullable=False, default=0)
     charisma_boost = db.Column(db.Integer, nullable=False, default=0)
+    damage = db.Column(db.Integer, nullable = False, default =0)
     price = db.Column(db.Integer, nullable=False, default=0)
 
 
 class ItemSchema(ma.Schema):
     class Meta:
-        fields = ("id","name","category","description","strength_boost","constitution_boost","dexterity_boost","persuasion_boost","intelligence_boost","wisdom_boost","charisma_boost","price")
+        fields = ("id","name","category","description","strength_boost","constitution_boost","dexterity_boost","persuasion_boost","intelligence_boost","wisdom_boost","charisma_boost","damage","price",)
         ordered = True
 
 item_schema = ItemSchema()
