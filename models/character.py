@@ -2,8 +2,10 @@ from init import db, ma
 from marshmallow import fields
 from marshmallow.validate import Length, OneOf, And, Regexp
 
+#variable that stores all valid vocations for the character model
 VALID_VOCATIONS = ("fighter","wizard","ranger","rogue")
 
+#character model
 class Character(db.Model):
     
     __tablename__ = "characters"

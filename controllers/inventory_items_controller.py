@@ -14,12 +14,13 @@ from models.item import Item
 inventory_items_bp = Blueprint("inventory_items", __name__, url_prefix="/<int:character_id>/inventory-items")
 
 @inventory_items_bp.route("/")
+@jwt_required()
 def get_inventory_items(character_id):
     
     stmt = db.select(InventoryItem).filter_by(character_id=character_id)
     inventory_items = db.session.scalars(stmt)
     return inventory_items_schema.dump(inventory_items)
- 
+
 
 @inventory_items_bp.route("/add-item/<int:item_id>", methods=["POST"])
 @jwt_required()

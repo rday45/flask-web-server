@@ -15,6 +15,7 @@ characters_bp.register_blueprint(inventory_items_bp)
 #Note - all users can view all the characters in the database and the username and id of the users the characters belong to.
 #route to view all characters in the database
 @characters_bp.route("/")
+@jwt_required()
 def get_all_characters():
     stmt = db.select(Character).order_by(Character.date_of_creation.desc())
     characters = db.session.scalars(stmt)
@@ -23,6 +24,7 @@ def get_all_characters():
     
     #route to view a single character in the database based on character id passed through the url
 @characters_bp.route("/<int:character_id>")
+@jwt_required()
 def get_single_character(character_id):
     stmt = db.select(Character).filter_by(id=character_id)
     character = db.session.scalar(stmt)

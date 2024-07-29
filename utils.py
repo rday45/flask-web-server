@@ -4,12 +4,14 @@ from flask_jwt_extended import get_jwt_identity
 from init import db
 from models.user import User
 
+#this function takes a birthday in the form of a standard python date format and returns an age in years
 def check_age(birthday_str):
     birthday = datetime.strptime(birthday_str, "%Y-%m-%d").date()
     today = date.today()
     age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
     return age
 
+#decorator function to check for admin authorisation
 def authorise_as_admin():
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)

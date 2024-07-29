@@ -6,7 +6,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from utils import auth_as_admin_decorator
 from better_profanity import profanity
 from init import db, bcrypt
-from models.user import User, user_schema, UserSchema
+from models.user import User, user_schema, UserSchema, users_schema
 from utils import check_age
 
 
@@ -103,3 +103,12 @@ def delete_user(user_id):
         return {"message": f"User with id {user_id} deleted succesfully"}
     else:
         return {"error": f"User with id {user_id} not found"}, 404
+    
+
+@auth_bp.route("/users")
+@jwt_required()
+@auth_as_admin_decorator
+def get_all_users():
+    stmt = db.select(User).order_by(User.id.desc())
+    users = db.session.scalars(stmt)
+    return users_schema.dump(users)
