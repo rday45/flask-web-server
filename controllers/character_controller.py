@@ -89,8 +89,10 @@ def update_character(character_id):
 @characters_bp.route("/<int:character_id>", methods =["DELETE"])
 @jwt_required()
 def delete_character(character_id):
+    #selects character based on the value passed through the url
     stmt = db.select(Character).filter_by(id=character_id)
     character = db.session.scalar(stmt)
+    #selects user based on their jwt token
     stmt2 = db.select(User).filter_by(id=get_jwt_identity())
     user = db.session.scalar(stmt2)
     if not character:
