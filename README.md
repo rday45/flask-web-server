@@ -11,45 +11,45 @@ To use this app enter the directory called 'src' or create clone of the reposito
 ```BASH
 git clone https://github.com/rday45/flask-web-server.git
 ```
-make sure you have navigated into the directoy and create a virtual environment and activate it:
+Make sure you have navigated into the directoy and create a virtual environment and activate it:
 
 ```BASH
 python3 -m venv .venv
 source .venv/bin/activate
 ```
-install the required packages with the following command:
+Install the required packages with the following command:
 
  ```BASH
 pip3 install -r requirements.txt
 ```
 
-enter PostgreSQL and create a database called rpg_db
+Enter PostgreSQL and create a database called rpg_db.
 
 ```BASH
 CREATE DATABASE rpg_db;
 
 ```
 
-create a new user and set a password:
-for example, you could create a user called rpg_dev with the password 123456
+Create a new user and set a password:
+for example, you could create a user called rpg_dev with the password 123456.
 
 ```BASH
 CREATE USER your_username WITH PASSWORD 'your_password';
 ```
 
-grant all privileges to your user
+Grant all privileges to your user.
 
 ```BASH
 GRANT ALL PRIVILEGES ON DATABASE rpg_db to your_username;
 ```
 
-enter the database rpg_db and grant all on schema
+Enter the database rpg_db and grant all on schema.
 ```BASH
 \c rpg_db
 GRANT ALL ON SCHEMA public TO your_username;
 ```
 
-in the directory called src, create an .env file and enter the following into it:
+In the directory called src, create an .env file and enter the following into it:
 
 ```python
 DATABASE_URL= postgresql+psycopg2://username:password@localhost/rpg_db
@@ -68,16 +68,16 @@ flask run
 
 ## Testing the app
 
-you can test the app using Insomnia. The endpoints provided use the standard IP address for local host 127.0.0.1 
+You can test the app using Insomnia. The endpoints provided use the standard IP address for local host 127.0.0.1 
 if yours is different, please make sure to adjust the endpoints.
 
 ### 1. Register user
 
 http://127.0.0.1:5000/auth/register  
 
-method = POST
+Method = POST
 
-this endpoint registers a new user and adds their details to the database. All fields are required and admin status is set to false as default. 
+This endpoint registers a new user and adds their details to the database. All fields are required and admin status is set to false as default. 
 
 Sample data that you can use:
 
@@ -93,7 +93,7 @@ Sample data that you can use:
 }
 ```
 
-if successful, the user information will entered into the database and sent back:
+If successful, the user information will entered into the database and sent back:
 
 ```JSON
 {
@@ -108,7 +108,7 @@ if successful, the user information will entered into the database and sent back
 	"characters": []
 }
 ```
-if unsuccessful, for example, if a field is missing, you will receive an error message:
+If unsuccessful, for example, if a field is missing, you will receive an error message:
 
 ```JSON
 {
@@ -124,9 +124,9 @@ if unsuccessful, for example, if a field is missing, you will receive an error m
 
 http://127.0.0.1:5000/auth/login
 
-method = POST
+Method = POST
 
-this endpoint allows users to login and receive a JWT token. Please use the token you receive for other functions of the app that require authentication:
+This endpoint allows users to login and receive a JWT token. Please use the token you receive for other functions of the app that require authentication:
 
 ```JSON
 
@@ -139,7 +139,7 @@ Sample data for an admin user you can use:
 }
 ```
 
-if successful you will receive some user details and the JSON token. For example,:
+If successful you will receive some user details and the JSON token. For example,:
 
 ```JSON
 {
@@ -149,7 +149,7 @@ if successful you will receive some user details and the JSON token. For example
 }
 ```
 
-if unsuccessful, for example incorrect username or email, you will receive the following error:
+If unsuccessful, for example incorrect username or email, you will receive the following error:
 ```BASH
 {
 	"error": "Invalid email or password"
@@ -160,13 +160,13 @@ if unsuccessful, for example incorrect username or email, you will receive the f
 
 http://127.0.0.1:5000/auth/users
 
-method = GET
+Method = GET
 
-this get method requires the user to have the JSON web token of an admin as a 'bearer token.' 
+This get method requires the user to have the JSON web token of an admin as a 'bearer token.' 
 
-if successful it will display all the user details in the database with the exception of their password.
+If successful it will display all the user details in the database with the exception of their password.
 
-if the user is an admin, they will receive details for all the users and some basic details of their characters:
+If the user is an admin, they will receive details for all the users and some basic details of their characters:
 
 ```JSON
 [
@@ -267,7 +267,7 @@ if the user is an admin, they will receive details for all the users and some ba
 ]
 ```
 
-if the user is not an admin, they will receive the following error message:
+If the user is not an admin, they will receive the following error message:
 
 ```JSON
 {
@@ -279,9 +279,9 @@ if the user is not an admin, they will receive the following error message:
 
 http://127.0.0.1:5000/auth/users
 
-method = PUT OR PATCH
+Method = PUT OR PATCH
 
-this endpoint allows a user to update their own details. note, even an admin currently cannot update another users details, they can only update their own. You can choose to send only the field you would like to update. this sample uses details for the sample user 1 which has already been seeded into the database through the CLI commands:
+This endpoint allows a user to update their own details. note, even an admin currently cannot update another users details, they can only update their own. You can choose to send only the field you would like to update. this sample uses details for the sample user 1 which has already been seeded into the database through the CLI commands:
 
 ```JSON
 {
@@ -289,7 +289,7 @@ this endpoint allows a user to update their own details. note, even an admin cur
 }
 ```
 
-if successful you will receive all the updated user details, excluding the user password:
+If successful you will receive all the updated user details, excluding the user password:
 
 ```JSON
 {
@@ -318,7 +318,7 @@ if successful you will receive all the updated user details, excluding the user 
 }
 ```
 
-if unsuccessful, for example you do not send the right data type associated with a field, you will receive the following error message:
+If unsuccessful, for example you do not send the right data type associated with a field, you will receive the following error message:
 
 ```BASH
 {
@@ -334,11 +334,11 @@ if unsuccessful, for example you do not send the right data type associated with
 
 http://127.0.0.1:5000/auth/users/<int:id>
 
-method = DELETE
+Method = DELETE
 
-this endpoint will allow you to delete a user with the id specified at the end of the url. replace <int:id> with the actual id value. A user must be an authorised admin user to delete a specific user.
+This endpoint will allow you to delete a user with the id specified at the end of the url. replace <int:id> with the actual id value. A user must be an authorised admin user to delete a specific user.
 
-if successful, in this example user with the id 2 is deleted, you will receive the following response:
+If successful, in this example user with the id 2 is deleted, you will receive the following response:
 
 ```JSON 
 {
@@ -346,7 +346,7 @@ if successful, in this example user with the id 2 is deleted, you will receive t
 }
 ```
 
-if unsuccesful due not being authorised, you will receive the following response:
+If unsuccesful due not being authorised, you will receive the following response:
 
 ```BASH
 {
@@ -359,11 +359,11 @@ if unsuccesful due not being authorised, you will receive the following response
 
 http://127.0.0.1:5000/characters/
 
-method = GET
+Method = GET
 
-this endpoint will allow any logged in user to view all characters and their associated user's id and username. A user must be authenticated to use this endpoint.
+This endpoint will allow any logged in user to view all characters and their associated user's id and username. A user must be authenticated to use this endpoint.
 
-if successful, the following response will be sent:
+If successful, the following response will be sent:
 
 ```JSON
 [
@@ -483,7 +483,7 @@ if successful, the following response will be sent:
 	}
 ]
 ```
-if not authenticated, the following response will be sent:
+If not authenticated, the following response will be sent:
 
 ```JSON
 {
@@ -497,9 +497,9 @@ http://127.0.0.1:5000/characters/<int:id>
 
 Method = GET
 
-this endpoint can be used to view a specific character in the database based on their id. In this example we will be viewing character with the id of 2:
+This endpoint can be used to view a specific character in the database based on their id. In this example we will be viewing character with the id of 2:
 
-if successful, you will receive the following response which includes the attributes for a character and the user id and username of their ownser:
+If successful, you will receive the following response which includes the attributes for a character and the user id and username of their ownser:
 
 ```JSON
 {
@@ -523,7 +523,7 @@ if successful, you will receive the following response which includes the attrib
 }
 ```
 
-if unsuccessful due to not being authenticated, you will receive the following response:
+If unsuccessful due to not being authenticated, you will receive the following response:
 
 ```JSON
 {
@@ -538,9 +538,9 @@ http://127.0.0.1:5000/characters
 
 Method = POST
 
-this endpoint is used to create a new character
+This endpoint is used to create a new character
 
-to create a character, the user must be authenticated and the name and vocation field must be sent with the request(description is optional and other fields are created automatically). The character will be automatically associated with the user sending the request. An example of a request you can send includes the following:
+To create a character, the user must be authenticated and the name and vocation field must be sent with the request(description is optional and other fields are created automatically). The character will be automatically associated with the user sending the request. An example of a request you can send includes the following:
 
 ```JSON
 {
@@ -550,7 +550,7 @@ to create a character, the user must be authenticated and the name and vocation 
 	
 }
 ```
-if successful, you will receive the following response:
+If successful, you will receive the following response:
 
 ```JSON
 {
@@ -574,7 +574,7 @@ if successful, you will receive the following response:
 }
 ```
 
-if the request is unsucessful, for example due to the vocation being an unaccepted value, you may receive the following error:
+If the request is unsucessful, for example due to the vocation being an unaccepted value, you may receive the following error:
 
 ```JSON
 {
@@ -592,9 +592,9 @@ http://127.0.0.1:5000/characters/<int:id>
 
 Method = PUT or PATCH
 
-this endpoint can update a character. characters can only be updated by their users or an admin. A user can only update their name and description whereas an admin can update most character attributes. Only the fields updated need to be sent in the request.
+This endpoint can update a character. characters can only be updated by their users or an admin. A user can only update their name and description whereas an admin can update most character attributes. Only the fields updated need to be sent in the request.
 
-a sample for a user updating a character's name:
+A sample for a user updating a character's name:
 
 ```JSON
 {
@@ -602,7 +602,7 @@ a sample for a user updating a character's name:
 }
 ```
 
-if successful they will receive all the details of their character:
+If successful they will receive all the details of their character:
 
 ```JSON
 {
@@ -626,7 +626,7 @@ if successful they will receive all the details of their character:
 }
 ```
 
-if unsuccessful, for example the character does not belong to them, they will receive the following error:
+If unsuccessful, for example the character does not belong to them, they will receive the following error:
 
 ```JSON
 {
@@ -638,11 +638,11 @@ if unsuccessful, for example the character does not belong to them, they will re
 
 http://127.0.0.1:5000/characters/<int:id>
 
-method = DELETE
+Method = DELETE
 
-this endpoint deletes a character with the id in the url. Only owners of the character and admins can delete a character.
+This endpoint deletes a character with the id in the url. Only owners of the character and admins can delete a character.
 
-if successful, you will receive the following:
+If successful, you will receive the following:
 
 ```JSON
 {
@@ -650,7 +650,7 @@ if successful, you will receive the following:
 }
 ```
 
-if unsuccessful due to not being an admin or owner, you will receive the following error:
+If unsuccessful due to not being an admin or owner, you will receive the following error:
 
 ```JSON
 {
@@ -663,17 +663,17 @@ if unsuccessful due to not being an admin or owner, you will receive the followi
 
 http://127.0.0.1:5000/items
 
-method = GET
+Method = GET
 
-the following endpoint can be used to view items. The user must be authenticated in and can view all items in the database. This is similar to the view characters endpoint.
+This endpoint can be used to view items. The user must be authenticated in and can view all items in the database. This is similar to the view characters endpoint.
 
 ### View specific item
 
 http://127.0.0.1:5000/items/<int:id>
 
-method = GET
+Method = GET
 
-this endpoint is used to view an individual item. <int:id> should be replaced with an item id number. The user must be authenticated and can view all items in the database. This is similar to the endpoint that allows users to view a specific character.
+This endpoint is used to view an individual item. <int:id> should be replaced with an item id number. The user must be authenticated and can view all items in the database. This is similar to the endpoint that allows users to view a specific character.
 
 ### Create item 
 
@@ -683,7 +683,7 @@ method = POST
 
 This endpoint allows admins to create items. Non admin users cannot do this. All items only require a name as all other fields have a default value or accept null values. The item category must be either miscellaneous, potion, weapon, armour or key.
 
-for example, a new item can be created by sending the following fields as an admin:
+For example, a new item can be created by sending the following fields as an admin:
 ```JSON
 {
 	"name":"piece of paper",
@@ -691,7 +691,7 @@ for example, a new item can be created by sending the following fields as an adm
 	"description":"used to write things on"
 }
 ```
-a successful response should look like this:
+A successful response should look like this:
 
 ```JSON
 {
@@ -710,7 +710,7 @@ a successful response should look like this:
 	"price": 1
 }
 ```
-if the request is unsuccessful, for example it is missing a required field like 'name'. Then the response should be the following error:
+If the request is unsuccessful, for example it is missing a required field like 'name'. Then the response should be the following error:
 
 ```JSON
 {
@@ -727,18 +727,18 @@ if the request is unsuccessful, for example it is missing a required field like 
 
 http://127.0.0.1:5000/items/<int:id>
 
-method = PUT or PATCH
+Method = PUT or PATCH
 
-This endpoint allows admins to update items. <int:id> should be placed with the items id number. Non admin users cannot do this. When updating items, the value for category must only be potion, weapon, armour or key.
+This endpoint allows admins to update items. <int:id> should be replaced with the items id number. Non admin users cannot do this. As of now, when updating items the value for category must only be potion, weapon, armour or key.
 
-the following is a sample request:
+The following is a sample request:
 
 ```JSON
 {
 	"name":"Old paper"
 }
 ```
-the following is a succesful response:
+The following is a succesful response:
 
 ```JSON
 {
@@ -758,7 +758,7 @@ the following is a succesful response:
 }
 ```
 
-an unsuccessful request may involve trying to change the category to one that is invalid. If so the reponse would be th efollowing:
+An unsuccessful request may involve trying to change the category to one that is invalid. If so, the reponse would be the following:
 
 ```JSON
 {
@@ -775,18 +775,18 @@ an unsuccessful request may involve trying to change the category to one that is
 
 http://127.0.0.1:5000/items/<int:id>
 
-method = DELETE
+Method = DELETE
 
 This endpoint allows admins to delete items. <int:id> should be replaced with the items id number. Non admin users cannot do this.
 
-if successful, you may receive a response like this:
+If successful, you may receive a response like this:
 
 ```JSON
 {
 	"message": "item with id 1 deleted successfully"
 }
 ``` 
-if unsuccessful, for example if item does not exist, you should receive this response:
+If unsuccessful, for example if item does not exist, you should receive this response:
 
 ```JSON
 {
@@ -803,7 +803,7 @@ method = GET
 
 This endpoint will get all inventory items of a specific character (enter their id in the url where it says int:character_id). Any user can view any character's inventory items, however, they need to be authenticated in order to do so. 
 
-if successful, a response may look this this:
+If successful, a response may look this this:
 
 ```JSON
 [
@@ -833,7 +833,7 @@ http://127.0.0.1:5000/characters/<int:character_id>/inventory-items/add-item/<in
 
 method = POST
 
-note this post request should not include anything in its body as the logic is completed using the values in the url. Only one item can be added at a time. 
+It is important to note that this post request should not include anything in its body as the logic is completed using the values in the url. Only one item can be added at a time. 
 
 This endpoint allows authenticated users to add an item to their own character's inventory. They cannot add the item if the character does not belong to them unless they are an admin. Furthermore, each character has a money attribute and each item has a price attribute. If the character does not have enough money, they are not allowed to add the item to their inventory. 
 
@@ -841,7 +841,7 @@ When the item is added to the inventory for the first time a new inventory_items
 
 This endpoint uses the most complicated logic. 
 
-a successful request may look like the following:
+A successful request may look like the following:
 
 ```JSON
 {
@@ -849,14 +849,14 @@ a successful request may look like the following:
 }
 ```
 
-if the character does not have enough money, the response should look like this:
+If the character does not have enough money, the response should look like this:
 
 ```JSON
 {
 	"message": "That item is too expensive. You do not have enough money to attain it."
 }
 ```
-if the item does not exist, the response should look like this:
+If the item does not exist, the response should look like this:
 
 ```JSON
 {
@@ -864,14 +864,14 @@ if the item does not exist, the response should look like this:
 }
 ```
 
-if no character is found, the reponse should look like this:
+If no character is found, the reponse should look like this:
 
 ```JSON
 {
 	"error": "Character with the id 80 not found"
 }
 ```
-if the character does not belong to the user, the response should look like this:
+If the character does not belong to the user, the response should look like this:
 
 ```JSON
 {
@@ -883,23 +883,23 @@ if the character does not belong to the user, the response should look like this
 
 http://127.0.0.1:5000/characters/<int:character_id>/inventory-items/delete-item/<int:item_id>
 
-method = DELETE 
+Method = DELETE 
 
 PLEASE NOTE THIS USES A DIFFERENT URL FROM THE PREVIOUS ENDPOINT 
 
-this endpoint allows the user to delete an item from their inventory. In its current state, it deletes the entire inventory_item instance rather than reducing the quantity by 1. Users can only delete their own inventory item, Admins can delete any inventory item for any character.
+This endpoint allows the user to delete an item from their inventory. In its current state, it deletes the entire inventory_item instance rather than reducing the quantity by 1. Users can only delete their own inventory item, Admins can delete any inventory item for any character.
 
-if they are successful they will receive the following:
+If they are successful they will receive the following:
 ```JSON
 {
 	"message": "all items: Potion of Strength have been removed from the inventory of Sir Boris"
 }
 ```
 
-note: Potion of Strength is the name of the item and Sir Boris is the name of the character. 
+Note: Potion of Strength is the name of the item and Sir Boris is the name of the character. 
 
 
-if the request is unsuccessful, for example, if they do not have that item in the character's inventory, they will receive the following error:
+If the request is unsuccessful, for example, if they do not have that item in the character's inventory, they will receive the following error:
 
 ```JSON
 {
