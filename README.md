@@ -1,4 +1,4 @@
-# Rpg Character and Item Manager
+# Role Playing Game Character and Item Manager
 
 Many people play table top games role playing games like dungeons and dragons, estimates show that dungeons and dragon's alone has approximately 13.7 active players. When people play these games they may have to track information about their various characters including their level, statistics and equipment on paper. This project allows players to create register and create a variety of characters and purchase items for them so long as their characters have enough money. 
 
